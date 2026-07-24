@@ -749,6 +749,7 @@ body{font-family:var(--f);background:#CBD5E1;display:flex;justify-content:center
 .ap-card2:active{transform:scale(.98)}
 .ap-card2.no-open:active{transform:none}
 .ap2-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px;min-width:0}
+.ap2-head.type-less{justify-content:flex-end}
 .ap2-type{height:20px;display:inline-flex;align-items:center;gap:4px;border-radius:5px;padding:0 7px;font-size:9px;font-weight:600;line-height:1;flex-shrink:0}
 .ap2-type svg{width:11px;height:11px;stroke-width:2}
 .ap2-type.org,.ap2-type.hr{background:#EFF6FF;color:#2563EB}
@@ -797,6 +798,7 @@ body{font-family:var(--f);background:#CBD5E1;display:flex;justify-content:center
 /* 审批中卡片：清爽任务卡样式 */
 .ap-card2{border-color:rgba(226,232,240,.72);border-radius:16px;padding:12px 14px;box-shadow:0 1px 2px rgba(15,23,42,.04);margin-bottom:9px}
 .ap2-head{margin-bottom:8px}
+.ap2-head.type-less{justify-content:flex-end}
 .ap2-type{height:18px;padding:0;background:transparent!important;color:var(--c5)!important;border:0;font-size:10px;font-weight:800}
 .ap2-type svg{width:12px;height:12px;color:var(--pr)}
 .ap2-st{height:22px;padding:0 9px;border:0;font-size:10px;font-weight:800}
@@ -3684,7 +3686,7 @@ body.ap-modal-active .tab-bar{display:none!important;opacity:0!important;pointer
         <!-- 搜索 -->
         <div class="ap-search-wrap">
           <span class="ap-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg></span>
-          <input type="text" placeholder="搜索姓名、待办主题" id="apSearchInput" oninput="apHandleSearchInput()">
+          <input type="text" placeholder="搜索消息内容" id="apSearchInput" oninput="apHandleSearchInput()">
         </div>
 
         <!-- Segmented -->
@@ -4024,7 +4026,7 @@ body.ap-modal-active .tab-bar{display:none!important;opacity:0!important;pointer
             <div class="pf-info">
               <div class="pf-nm">陈思远</div>
               <div class="pf-id">工号 9045</div>
-              <div class="pf-dept">高级设计师</div>
+              <div class="pf-dept">产品设计部 · 高级设计师</div>
             </div>
           </div>
           <div class="cd">
@@ -4356,7 +4358,7 @@ body.ap-modal-active .tab-bar{display:none!important;opacity:0!important;pointer
           <div class="my-app-control-panel">
             <div class="my-app-search">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
-              <input type="text" id="myAppSearchInput" placeholder="搜索姓名、审批主题" oninput="handleMyAppSearch()">
+              <input type="text" id="myAppSearchInput" placeholder="搜索消息内容" oninput="handleMyAppSearch()">
             </div>
             <div class="my-app-tabs">
               <button type="button" class="my-app-tab act" id="myAppTabOngoing" onclick="switchMyAppTab('ongoing')">进行中(0)</button>
@@ -5656,7 +5658,7 @@ function approvalProcessTitle(item){
   if(!kind) return '';
   var applicant=String(item && (item.applicant||item.employee||item.name) || '').trim();
   if(!applicant || applicant==='自己' || applicant==='我') applicant='我';
-  return '请审批：'+applicant+'的'+kind+'流程';
+  return applicant+'的'+kind+'流程';
 }
 function approvalProcessPlainTitle(item){
   var kind=approvalProcessKind(item);
@@ -5935,14 +5937,13 @@ function renderTodo(){
   }
   box.innerHTML = items.map(function(t,index){
     var canOpen = homeTodoCanOpen(t);
-    var icon = TODO_FLOW_ICONS[t.flowKey] || TODO_FLOW_ICONS.org;
     var isNotice = isTodoNotice(t);
     var sourceItem = findHomeTodoApItem(t) || t;
-    var subject = isNotice ? String(t.noticeTitle || '公告通知').trim() : (sourceItem && sourceItem.todoAction === 'open' ? apCardSubjectText(sourceItem) : (approvalProcessTitle(t) || flowCardSubjectText(t)));
+    var subject = isNotice ? String(t.noticeTitle || '公告通知').trim() : (sourceItem && sourceItem.todoAction === 'open' ? apCardSubjectText(sourceItem) : (approvalProcessPlainTitle(t) || flowCardSubjectText(t)));
     var timeSource = t.demoAgeMinutes != null ? apTimeFromNowMinutes(t.demoAgeMinutes) : (t.arriveAt||t.time);
     var displayTime = apFormatCardTime(timeSource);
     var clickAttr = canOpen ? ' onclick="openHomeTodoItem('+index+')" role="button"' : '';
-    var detailHtml = isNotice ? noticeExtraHtml(t) : approvalExtraFieldsHtml(sourceItem) + apCurrentHandlerHtml(sourceItem);
+    var detailHtml = isNotice ? noticeExtraHtml(t) : approvalExtraFieldsHtml(sourceItem);
     var isTransferTodo = !isNotice && t.flowKey === 'hr' && t.processName === '调动申请';
     var isOpenTodo = !isNotice && sourceItem && sourceItem.todoAction === 'open';
     var statusText = isNotice ? '待处理' : (isOpenTodo ? String(sourceItem.statusLabel || '待处理').trim() : '审批中');
@@ -5955,7 +5956,7 @@ function renderTodo(){
             '</div>' : '')));
     var flowClass = !isNotice && apIsLeaveFlow({type:t.flowKey,subject:t.processName,leaveType:t.leaveType,leaveTime:t.leaveTime,leaveDuration:t.leaveDuration}) ? ' leave-flow' : (isTransferTodo ? ' transfer-flow' : '');
     return '<div class="ap-card2 home-ap-card'+flowClass+(isNotice?' ap2-notice':'')+(canOpen?'':' no-open')+'"'+clickAttr+'>'+
-      '<div class="ap2-head"><span class="ap2-type '+t.flowKey+'">'+icon+t.flowText+'</span><span class="ap2-st pd">'+statusText+'</span></div>'+
+      '<div class="ap2-head"><span class="ap2-type '+(isNotice?'notice':(sourceItem.type||t.flowKey||'org'))+'">'+(TODO_FLOW_ICONS[isNotice?'notice':(sourceItem.type||t.flowKey||'org')]||TODO_FLOW_ICONS.org)+apSafeText(isNotice?(sourceItem.typeLabel||t.flowText||'通知'):(sourceItem.typeLabel||t.flowText||'流程'))+'</span><span class="ap2-st pd">'+statusText+'</span></div>'+
       '<div class="ap2-content">'+
         '<div class="ap2-main">'+
           '<div class="ap2-subject">'+subject+'</div>'+
@@ -6035,8 +6036,8 @@ function myAppActionsForItem(item){
   if(item && item.tab === 3){
     if(item.status === 'pd'){
       return [
-        {key:'withdraw',label:'撤回',cls:'danger'},
-        {key:'urge',label:'催办',cls:'warn'}
+        {key:'urge',label:'催办',cls:'warn'},
+        {key:'withdraw',label:'撤回',cls:'danger'}
       ];
     }
     if(item.status === 'rj' || item.status === 'bh'){
@@ -6058,8 +6059,9 @@ function myAppCardHtml(item, index, source){
   }).join('')+'</div>' : '';
   var clickAttr = canOpen ? ' onclick="openMyAppItem('+index+',\''+source+'\')" role="button"' : '';
   var flowClass = apIsLeaveFlow(item) ? ' leave-flow' : (apIsTransferFlow(item) ? ' transfer-flow' : '');
+  var headHtml = '<div class="ap2-head"><span class="ap2-type '+item.type+'">'+icon+apSafeText(item.typeLabel || '流程')+'</span><span class="ap2-st '+myAppStatusClass(item)+'">'+statusText+'</span></div>';
   return '<div class="ap-card2 '+(source==='home'?'my-app-home-item':'my-app-detail-item')+flowClass+(canOpen?'':' no-open')+'"'+clickAttr+'>'+
-    '<div class="ap2-head"><span class="ap2-type '+item.type+'">'+icon+item.typeLabel+'</span><span class="ap2-st '+myAppStatusClass(item)+'">'+statusText+'</span></div>'+
+    headHtml+
     '<div class="ap2-content">'+
       '<div class="ap2-main">'+
         '<div class="ap2-subject">'+subject+'</div>'+
@@ -7157,7 +7159,7 @@ var _apCtx = null;
 
 const AP_ACTION_ORDER = ['agree','disagree','void','reject','rejectStart','rejectPrev','rejectHistory','withdraw','transfer','addsign','jump','cc','urge','delegate'];
 const AP_ROLE_CONFIG = {
-  creator:{actions:['withdraw','urge'], opinion:{show:false}},
+  creator:{actions:['urge','withdraw'], opinion:{show:false}},
   processor:{actions:['agree','disagree','reject','transfer','addsign','cc'], opinion:{show:true, required:{disagree:true,rejectStart:true,rejectPrev:true,rejectHistory:true}}},
   processed:{actions:[]}
 };
@@ -10570,8 +10572,8 @@ function getApCardActions(item){
   if(item && item.tab === 3){
     if(item.status === 'pd'){
       return [
-        {key:'withdraw',label:'撤回',cls:'danger'},
-        {key:'urge',label:'催办',cls:'warn'}
+        {key:'urge',label:'催办',cls:'warn'},
+        {key:'withdraw',label:'撤回',cls:'danger'}
       ];
     }
     if(item.status === 'rj' || item.status === 'bh'){
@@ -11004,16 +11006,16 @@ function renderApList(){
     var actions = getApCardActions(d);
     var canOpen = apShouldShowFlow(d) || isApprovalActionable(d) || isNoticeItem(d) || d.tab === 3;
     var click = canOpen ? 'onclick="openApListItem('+index+')" role="button"' : '';
-    var icon = TODO_FLOW_ICONS[d.type] || TODO_FLOW_ICONS.org;
     var subject = apCardSubjectText(d);
     var displayTime = apCardTimeText(d);
-    var detailHtml = isNoticeItem(d) ? noticeExtraHtml(d) : approvalExtraFieldsHtml(d) + apCurrentHandlerHtml(d);
+    var detailHtml = isNoticeItem(d) ? noticeExtraHtml(d) : approvalExtraFieldsHtml(d) + (apActiveTab === 0 ? '' : apCurrentHandlerHtml(d));
     var actionHtml = actions.length ? '<div class="ap2-actions">'+actions.map(function(a){
       return '<button class="ap2-btn '+a.cls+'" onclick="openApListItemAction('+index+',\''+a.key+'\',event)">'+a.label+'</button>';
     }).join('')+'</div>' : '';
     var flowClass = apIsLeaveFlow(d) ? ' leave-flow' : (apIsTransferFlow(d) ? ' transfer-flow' : '');
+    var headHtml = '<div class="ap2-head"><span class="ap2-type '+d.type+'">'+(TODO_FLOW_ICONS[d.type] || TODO_FLOW_ICONS.org)+apSafeText(d.typeLabel || '流程')+'</span><span class="ap2-st '+d.status+'">'+d.statusLabel+'</span></div>';
     return '<div class="ap-card2'+flowClass+(isNoticeItem(d)?' ap2-notice':'')+(canOpen?'':' no-open')+'" '+click+'>'+
-      '<div class="ap2-head"><span class="ap2-type '+d.type+'">'+icon+d.typeLabel+'</span><span class="ap2-st '+d.status+'">'+d.statusLabel+'</span></div>'+
+      headHtml+
       '<div class="ap2-content">'+
         '<div class="ap2-main">'+
           '<div class="ap2-subject">'+subject+'</div>'+
