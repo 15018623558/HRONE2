@@ -3375,6 +3375,8 @@ body{padding:0;align-items:flex-start;overflow:auto;-webkit-font-smoothing:antia
 .ap2-tm,.td-time,.msg-time,.goal-task-deadline{font-size:14px!important;}
 .ap2-actions{gap:14px;margin-top:16px;}
 .ap2-btn,.td-action,.salary-notice-action,.goal-action,.perf-btn,.leave-bottom-btn,.leave-apply-submit,.ap-ab,.ap-modal-btn,.tr-ap-ab{min-height:52px;border-radius:18px!important;font-size:16px!important;padding:0 22px!important;}
+.tr-ap-bottom-inner .ap-ab-more-btn{min-height:52px;height:auto;border-radius:18px!important;font-size:16px!important;padding:0 10px!important;}
+.tr-ap-bottom-inner.with-more{grid-template-columns:repeat(3,minmax(0,1fr)) 90px;}
 
 .qa-g{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 14px;}
 .qa-it{min-height:132px;border-radius:22px!important;padding:16px 8px!important;}
@@ -3874,6 +3876,14 @@ body{padding:0;align-items:flex-start;overflow:auto;-webkit-font-smoothing:antia
 #pg-home .mod-hd h3{
   font-size:18px!important;
   line-height:1.25!important;
+}
+/* Home「更多」text & icon match module title size */
+#pg-home .mod-hd .more-ln-inline,#pg-home .mod-hd .more-txt-inline{
+  font-size:18px!important;
+}
+#pg-home .mod-hd .more-ln-inline::after,#pg-home .mod-hd .more-txt-inline::after{
+  font-size:18px;
+  transform:translateY(-1px);
 }
 
 /* Home common apps row spacing */
