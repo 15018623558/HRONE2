@@ -6422,7 +6422,7 @@ function myAppCardHtml(item, index, source){
   var statusText = myAppStatusLabel(item);
   var subject = myAppSubjectText(item);
   var timeText = source==='home' ? myAppFullSecondTime(item) : myAppListTime(item);
-  var detailHtml = approvalExtraFieldsHtml(item) + apCurrentHandlerHtml(item);
+  var detailHtml = approvalExtraFieldsHtml(item);
   var actions = myAppActionsForItem(item);
   var actionHtml = actions.length ? '<div class="ap2-actions">'+actions.map(function(a){
     return '<button class="ap2-btn '+a.cls+'" onclick="openMyAppAction('+index+',\''+source+'\',\''+a.key+'\',event)">'+a.label+'</button>';
@@ -7144,6 +7144,7 @@ function renderMsgTypes(){
   var wrap=document.getElementById('msgTypeWrap');
   if(!box) return;
   var status=msgTabIndex===0?'unread':'read';
+  var showCounts=status==='unread';
   if(wrap) wrap.classList.toggle('expanded',msgTypeExpanded);
   var activeMessages=MSG_DATA.filter(function(m){return m.status===status&&msgMatchesQuery(m)});
   var counts=activeMessages.reduce(function(map,m){
@@ -7172,7 +7173,7 @@ function renderMsgTypes(){
   if(!visible.length) msgTypeKey='all';
   box.innerHTML=visible.map(function(t){
     var count=t.count;
-    return '<button class="msg-type-chip'+(msgTypeKey===t.key?' act':'')+'" onclick="switchMsgType(\''+t.key+'\',event)">'+t.label+'<span class="cnt">'+formatMsgCount(count)+'</span></button>';
+    return '<button class="msg-type-chip'+(msgTypeKey===t.key?' act':'')+'" onclick="switchMsgType(\''+t.key+'\',event)">'+t.label+(showCounts?'<span class="cnt">'+formatMsgCount(count)+'</span>':'')+'</button>';
   }).join('');
 }
 function keepMsgTypeVisible(){
@@ -7194,12 +7195,11 @@ function renderMsgLists(){
   var unread=document.getElementById('msg-unread');
   var read=document.getElementById('msg-read');
   var unreadCount=MSG_DATA.filter(function(m){return m.status==='unread'}).length;
-  var readCount=MSG_DATA.filter(function(m){return m.status==='read'}).length;
   var tabUnread=document.getElementById('msg-tab-unread');
   var tabRead=document.getElementById('msg-tab-read');
   var homeBadge=document.querySelector('.home-notify-badge');
   if(tabUnread) tabUnread.textContent='未读 '+formatMsgCount(unreadCount);
-  if(tabRead) tabRead.textContent='已读 '+formatMsgCount(readCount);
+  if(tabRead) tabRead.textContent='已读';
   if(homeBadge){
     homeBadge.textContent=formatMsgCount(unreadCount);
     homeBadge.style.display=unreadCount?'':'none';
@@ -11214,7 +11214,7 @@ function renderApList(){
     var click = canOpen ? 'onclick="openApListItem('+index+')" role="button"' : '';
     var subject = apCardSubjectText(d);
     var displayTime = apCardTimeText(d);
-    var detailHtml = isNoticeItem(d) ? noticeExtraHtml(d) : approvalExtraFieldsHtml(d) + (apActiveTab === 0 ? '' : apCurrentHandlerHtml(d));
+    var detailHtml = isNoticeItem(d) ? noticeExtraHtml(d) : approvalExtraFieldsHtml(d);
     var actionHtml = actions.length ? '<div class="ap2-actions">'+actions.map(function(a){
       return '<button class="ap2-btn '+a.cls+'" onclick="openApListItemAction('+index+',\''+a.key+'\',event)">'+a.label+'</button>';
     }).join('')+'</div>' : '';
