@@ -4136,7 +4136,6 @@ body{padding:0;align-items:flex-start;overflow:auto;-webkit-font-smoothing:antia
           <div class="asg act" data-ap-tab="0" onclick="switchApTab(0)">待办<span class="sg-badge" id="ap-todo-count">4</span></div>
           <div class="asg" data-ap-tab="1" onclick="switchApTab(1)">已办</div>
           <div class="asg" data-ap-tab="3" onclick="switchApTab(3)">已发起</div>
-          <div class="asg" data-ap-tab="2" onclick="switchApTab(2)">抄送我</div>
         </div>
 
         <!-- 筛选条件栏 -->
@@ -6861,7 +6860,10 @@ function qaRunApp(key){
 function toggleQaPageItem(key){
   normalizeQuickList();
   var i=quickList.indexOf(key);
-  if(i>=0) quickList.splice(i,1);
+  if(i>=0){
+    if(qaCommonKeys().length<=1){showTrToast('我的常用至少需要配置1个');return;}
+    quickList.splice(i,1);
+  }
   else{
     if(qaCommonKeys().length>=QA_COMMON_MAX){showTrToast('最多添加12个常用应用');return;}
     quickList.push(key);
@@ -10809,6 +10811,7 @@ function getApCardActions(item){
 }
 
 function switchApTab(idx){
+  if(idx === 2) idx = 0;
   apSaveActiveFilterState();
   apActiveTab = idx;
   apLoadActiveFilterState();
