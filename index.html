@@ -87,7 +87,7 @@ body{font-family:var(--f);background:#CBD5E1;display:flex;justify-content:center
 .msg-type-head{display:none;align-items:center;justify-content:space-between;height:32px;margin-bottom:6px;color:var(--c7);font-size:14px;font-weight:700}
 .msg-type-wrap.has-extra.expanded .msg-type-head{display:flex}
 .msg-type-toggle{display:none;align-items:center;justify-content:center;width:32px;height:32px;border:none;border-radius:16px;background:var(--sf);color:var(--c5);cursor:pointer}
-.msg-type-wrap.has-extra>#msgTypeToggle{display:flex;position:absolute;right:0;top:0;border:1px solid var(--bd)}
+.msg-type-wrap.has-extra>#msgTypeToggle{display:none}
 .msg-type-wrap.has-extra.expanded>#msgTypeToggle{display:none}
 .msg-type-head .msg-type-toggle{display:flex;border:1px solid var(--bd)}
 .msg-type-toggle svg{width:15px;height:15px;transition:transform .2s var(--ease-out)}
@@ -96,9 +96,11 @@ body{font-family:var(--f);background:#CBD5E1;display:flex;justify-content:center
 .msg-type-scroll::-webkit-scrollbar{display:none}
 .msg-type-wrap:not(.has-extra) .msg-type-scroll{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;overflow:visible;padding:0;background:transparent;border-radius:0}
 .msg-type-wrap:not(.has-extra) .msg-type-chip{width:100%;min-width:0;padding:0 6px;justify-content:center}
-.msg-type-wrap.has-extra:not(.expanded) .msg-type-scroll{padding-right:40px}
-.msg-type-wrap.has-extra.expanded .msg-type-scroll{flex-wrap:wrap;overflow:visible;padding:10px;border:1px solid var(--bd);border-radius:18px;background:var(--sf);box-shadow:var(--sm)}
+.msg-type-wrap.has-extra .msg-type-scroll{padding-right:18px;scroll-snap-type:x proximity;touch-action:pan-x;overscroll-behavior-x:contain}
+.msg-type-wrap.has-extra.expanded .msg-type-scroll{flex-wrap:nowrap;overflow:auto;padding:2px 0 4px;border:0;border-radius:0;background:transparent;box-shadow:none}
+.msg-type-wrap.has-extra .msg-type-chip{width:calc((100% - 18px)/4);min-width:calc((100% - 18px)/4);padding:0 6px;justify-content:center}
 .msg-type-chip{min-height:32px;display:inline-flex;align-items:center;gap:4px;border:1px solid rgba(15,23,42,.05);border-radius:10px;padding:0 9px;background:rgba(255,255,255,.72);color:var(--c5);font-size:14px;font-weight:700;font-family:var(--f);white-space:nowrap;flex-shrink:0;cursor:pointer;box-shadow:none;line-height:1.2}
+.msg-type-chip{scroll-snap-align:start}
 .msg-type-chip.act{background:var(--pr50);border-color:var(--pr100);box-shadow:none;color:var(--pr);font-weight:800}
 .msg-type-chip .cnt{min-width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;padding:0 4px;border-radius:999px;background:rgba(148,163,184,.14);font-family:var(--m);font-size:14px;font-weight:800;color:currentColor}
 .msg-type-chip.act .cnt{background:var(--pr);color:#fff}
@@ -7100,7 +7102,7 @@ function switchTab(idx){
   }catch(e){console.error('switchTab error:',e)}
 }
 
-var msgTabIndex=0;var msgTabIndex=0;
+var msgTabIndex=0;
 var msgTypeKey='all';
 var msgTypeExpanded=false;
 var msgSearchQuery='';
@@ -7109,6 +7111,7 @@ var MSG_TYPES=[
   {key:'approval',label:'审批通知'},
   {key:'system',label:'系统通知'},
   {key:'export',label:'导出通知'},
+  {key:'other',label:'其他消息'},
   {key:'policy',label:'制度通知'},
   {key:'activity',label:'活动通知'}
 ];
@@ -7121,7 +7124,9 @@ var MSG_DATA=[
   {id:'m6',status:'read',type:'approval',title:'张琳的调动申请已处理',time:'6/25',desc:'流程记录已同步，可点击查看审批详情。',detail:'申请人：张琳；流程类型：调动申请；处理结果：已完成当前节点审批。你可以进入流程审批详情查看完整记录。',action:'detail',detailPage:'dt-ap-transfer'},
   {id:'m7',status:'read',type:'export',title:'工资确认单导出完成',time:'6/24',desc:'工资确认单已生成，可下载到手机本地。',detail:'导出文件：工资确认单_2026-06.pdf。点击下载后将保存至手机本地文件目录。',action:'download',fileName:'工资确认单_2026-06.txt',fileMime:'text/plain;charset=utf-8',fileContent:'工资确认单 2026-06\n员工：陈思远\n状态：已确认'},
   {id:'m8',status:'read',type:'system',title:'员工手册已更新',time:'6/23',desc:'新增出差报销说明，请及时查看。',detail:'员工手册新增出差报销说明与补充条款，请进入制度中心查看完整内容。',action:'none'},
-  {id:'m9',status:'read',type:'system',title:'季度团建报名提醒',time:'6/21',desc:'本周五截止报名，请尽快确认参加。',detail:'季度团建活动将于 2026-07-05 举行，报名截止时间为本周五 18:00。',action:'none'}
+  {id:'m9',status:'read',type:'system',title:'季度团建报名提醒',time:'6/21',desc:'本周五截止报名，请尽快确认参加。',detail:'季度团建活动将于 2026-07-05 举行，报名截止时间为本周五 18:00。',action:'none'},
+  {id:'m10',status:'unread',type:'other',title:'办公区访客预约提醒',time:'昨天 16:40',desc:'你有一条办公区访客预约提醒，请及时查看。',detail:'访客预约已提交，请在访客中心确认到访时间与接待信息。',action:'none'},
+  {id:'m11',status:'read',type:'other',title:'员工关怀问卷已发布',time:'6/20',desc:'本月员工关怀问卷已发布，欢迎参与填写。',detail:'问卷预计用时 3 分钟，感谢你对员工体验的反馈。',action:'none'}
 ];
 function msgTypeLabel(type){
   var item=MSG_TYPES.find(function(t){return t.key===type});
@@ -7150,30 +7155,20 @@ function renderMsgTypes(){
   var wrap=document.getElementById('msgTypeWrap');
   if(!box) return;
   var status=msgTabIndex===0?'unread':'read';
-  var showCounts=status==='unread';
-  if(wrap) wrap.classList.toggle('expanded',msgTypeExpanded);
+  var showCounts=true;
   var activeMessages=MSG_DATA.filter(function(m){return m.status===status&&msgMatchesQuery(m)});
   var counts=activeMessages.reduce(function(map,m){
     map[m.type]=(map[m.type]||0)+1;
     return map;
   },{});
-  var fixedKeys=['all','approval','system','export'];
-  var extraTypes=MSG_TYPES.filter(function(t){
-    return fixedKeys.indexOf(t.key)===-1 && counts[t.key]>0;
-  });
-  if(wrap){
-    wrap.classList.toggle('has-extra',extraTypes.length>0);
-    if(!extraTypes.length) wrap.classList.remove('expanded');
-  }
-  var visible=(activeMessages.length>0?[{key:'all',label:'全部',count:activeMessages.length}]:[{key:'all',label:'全部',count:0}]).concat(
-    MSG_TYPES.filter(function(t){return fixedKeys.indexOf(t.key)!==-1 && t.key!=='all';}).map(function(t){
-      return {key:t.key,label:t.label,count:counts[t.key]||0};
+  var visible=[{key:'all',label:'全部',count:activeMessages.length}].concat(
+    MSG_TYPES.filter(function(t){return t.key!=='all'&&counts[t.key]>0;}).map(function(t){
+      return {key:t.key,label:t.label,count:counts[t.key]};
     })
   );
-  if(extraTypes.length>0 && msgTypeExpanded){
-    visible=visible.concat(extraTypes.map(function(t){
-      return {key:t.key,label:t.label,count:counts[t.key]};
-    }));
+  if(wrap){
+    wrap.classList.toggle('has-extra',visible.length>4);
+    wrap.classList.remove('expanded');
   }
   if(visible.length&&visible.every(function(t){return t.key!==msgTypeKey})) msgTypeKey='all';
   if(!visible.length) msgTypeKey='all';
@@ -7181,18 +7176,22 @@ function renderMsgTypes(){
     var count=t.count;
     return '<button class="msg-type-chip'+(msgTypeKey===t.key?' act':'')+'" onclick="switchMsgType(\''+t.key+'\',event)">'+t.label+(showCounts?'<span class="cnt">'+formatMsgCount(count)+'</span>':'')+'</button>';
   }).join('');
+  keepMsgTypeVisible();
 }
 function keepMsgTypeVisible(){
+  var box=document.getElementById('msgTypeScroll');
+  var active=box&&box.querySelector('.msg-type-chip.act');
+  if(active) active.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
 }
 function renderMsgBulkBar(){
   var bar=document.getElementById('msgBulkBar');
   var text=document.getElementById('msgBulkText');
   var btn=document.getElementById('msgBulkBtn');
   if(!bar) return;
-  var visibleUnread=getMsgFiltered('unread');
-  var show=msgTabIndex===0&&visibleUnread.length>0;
+  var show=false;
   bar.classList.toggle('show',show);
   if(!show) return;
+  var visibleUnread=getMsgFiltered('unread');
   var isFiltered=!!msgSearchQuery||msgTypeKey!=='all';
   if(text) text.textContent=(isFiltered?'当前结果':'当前')+'有 '+visibleUnread.length+' 条未读消息';
   if(btn) btn.textContent=isFiltered?'当前结果全部标为已读':'全部标记为已读';
@@ -7491,9 +7490,9 @@ function apTransferRule(ctx){
     rule.readonly = true;
     rule.showActions = status === 'pd';
   }else if(tab === 3){
-    rule.readonly = !(status === 'bh' || status === 'rj');
-    rule.editable = status === 'bh' || status === 'rj';
-    rule.showActions = status === 'pd' || status === 'bh' || status === 'rj';
+    rule.readonly = true;
+    rule.editable = false;
+    rule.showActions = false;
   }
   return rule;
 }
@@ -8430,6 +8429,10 @@ function renderApDetailActions(){
   act.onclick = function(e){ e.stopPropagation(); };
   if(!_apCtx){act.innerHTML='';return;}
   var t = _apCtx.tab, s = _apCtx.status;
+  if(Number(t) === 3){
+    act.innerHTML='';
+    return;
+  }
   var ico = function(n){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="'+n+'"></path></svg>';};
   var actions = apConfiguredActions(_apCtx);
   var role = apApprovalRole(_apCtx);
@@ -8463,6 +8466,11 @@ function renderApTransferActions(){
   /* 无上下文时默认待处理-审批中 */
   if(!_apCtx) _apCtx = {tab: 0, status: 'pd'};
   var t = _apCtx.tab, s = _apCtx.status;
+  if(Number(t) === 3){
+    container.style.display='none';
+    container.innerHTML='<div class="tr-ap-bottom-inner"></div>';
+    return;
+  }
   var ico = function(n){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="'+n+'"></path></svg>';};
   var inner = container.querySelector('.tr-ap-bottom-inner') || container;
 
