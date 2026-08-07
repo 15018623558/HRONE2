@@ -5429,15 +5429,15 @@ body{padding:0;align-items:flex-start;overflow:auto;-webkit-font-smoothing:antia
         </div>
         <div class="ap-picker-search">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
-          <input id="ap-person-picker-search" placeholder="搜索姓名、工号或部门" oninput="filterApPicker(this,'ap-person-picker-list')">
+          <input id="ap-person-picker-search" placeholder="搜索姓名、工号" oninput="filterApPicker(this,'ap-person-picker-list')">
         </div>
         <div class="ap-picker-list" id="ap-person-picker-list">
-          <div class="ap-picker-empty" data-picker-empty="ap-person-picker-list" data-empty-title="" data-empty-desc="请输入姓名、工号或部门搜索处理人"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor"><path d="M24 29a9 9 0 1018 0 9 9 0 00-18 0z"></path><path d="M14 52c2.7-8.2 9-13 19-13s16.3 4.8 19 13"></path><path d="M16 14h32"></path><path d="M21 8h22"></path></svg><div class="em-tt" style="display:none"></div><div class="em-ds">请输入姓名、工号或部门搜索处理人</div></div>
-          <button type="button" class="ap-picker-row" data-group="person" data-value="李娜（B01888）" data-main="李娜（B01888）" data-meta="人力资源部 · HRBP" onclick="selectApTransferPerson(this)"><span class="ap-picker-av">李</span><span class="ap-picker-info"><span class="ap-picker-main">李娜（B01888）</span><span class="ap-picker-meta">人力资源部 · HRBP</span></span><span class="ap-picker-check"></span></button>
-          <button type="button" class="ap-picker-row" data-group="person" data-value="王强（B02345）" data-main="王强（B02345）" data-meta="销售管理部 · 经理" onclick="selectApTransferPerson(this)"><span class="ap-picker-av">王</span><span class="ap-picker-info"><span class="ap-picker-main">王强（B02345）</span><span class="ap-picker-meta">销售管理部 · 经理</span></span><span class="ap-picker-check"></span></button>
-          <button type="button" class="ap-picker-row" data-group="person" data-value="赵敏（B03112）" data-main="赵敏（B03112）" data-meta="产品研发部 · 总监" onclick="selectApTransferPerson(this)"><span class="ap-picker-av">赵</span><span class="ap-picker-info"><span class="ap-picker-main">赵敏（B03112）</span><span class="ap-picker-meta">产品研发部 · 总监</span></span><span class="ap-picker-check"></span></button>
-          <button type="button" class="ap-picker-row" data-group="person" data-value="吴杰（B04109）" data-main="吴杰（B04109）" data-meta="HSSC人力共享 · 测试组" onclick="selectApTransferPerson(this)"><span class="ap-picker-av">吴</span><span class="ap-picker-info"><span class="ap-picker-main">吴杰（B04109）</span><span class="ap-picker-meta">HSSC人力共享 · 测试组</span></span><span class="ap-picker-check"></span></button>
-          <button type="button" class="ap-picker-row" data-group="person" data-value="周琪（B03771）" data-main="周琪（B03771）" data-meta="流程运营部 · SSC" onclick="selectApTransferPerson(this)"><span class="ap-picker-av">周</span><span class="ap-picker-info"><span class="ap-picker-main">周琪（B03771）</span><span class="ap-picker-meta">流程运营部 · SSC</span></span><span class="ap-picker-check"></span></button>
+          <div class="ap-picker-empty" data-picker-empty="ap-person-picker-list" data-empty-title="" data-empty-desc="请输入姓名、工号搜索处理人"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor"><path d="M24 29a9 9 0 1018 0 9 9 0 00-18 0z"></path><path d="M14 52c2.7-8.2 9-13 19-13s16.3 4.8 19 13"></path><path d="M16 14h32"></path><path d="M21 8h22"></path></svg><div class="em-tt" style="display:none"></div><div class="em-ds">请输入姓名、工号搜索处理人</div></div>
+          <button type="button" class="ap-picker-row" data-group="person" data-value="李娜（B01888）" data-main="李娜（B01888）" onclick="selectApTransferPerson(this)"><span class="ap-picker-info"><span class="ap-picker-main">李娜（B01888）</span></span><span class="ap-picker-check"></span></button>
+          <button type="button" class="ap-picker-row" data-group="person" data-value="王强（B02345）" data-main="王强（B02345）" onclick="selectApTransferPerson(this)"><span class="ap-picker-info"><span class="ap-picker-main">王强（B02345）</span></span><span class="ap-picker-check"></span></button>
+          <button type="button" class="ap-picker-row" data-group="person" data-value="赵敏（B03112）" data-main="赵敏（B03112）" onclick="selectApTransferPerson(this)"><span class="ap-picker-info"><span class="ap-picker-main">赵敏（B03112）</span></span><span class="ap-picker-check"></span></button>
+          <button type="button" class="ap-picker-row" data-group="person" data-value="吴杰（B04109）" data-main="吴杰（B04109）" onclick="selectApTransferPerson(this)"><span class="ap-picker-info"><span class="ap-picker-main">吴杰（B04109）</span></span><span class="ap-picker-check"></span></button>
+          <button type="button" class="ap-picker-row" data-group="person" data-value="周琪（B03771）" data-main="周琪（B03771）" onclick="selectApTransferPerson(this)"><span class="ap-picker-info"><span class="ap-picker-main">周琪（B03771）</span></span><span class="ap-picker-check"></span></button>
         </div>
         <div class="ap-picker-ft">
           <button type="button" class="sec" onclick="clearApTransferPerson()">清空</button>
@@ -5452,19 +5452,19 @@ body{padding:0;align-items:flex-start;overflow:auto;-webkit-font-smoothing:antia
         </div>
         <div class="ap-picker-search">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
-          <input id="ap-cc-picker-search" placeholder="搜索姓名、工号或部门" oninput="filterApPicker(this,'ap-cc-picker-list')">
+          <input id="ap-cc-picker-search" placeholder="搜索姓名、工号" oninput="filterApPicker(this,'ap-cc-picker-list')">
         </div>
         <div class="ap-picker-list" id="ap-cc-picker-list">
-          <div class="ap-picker-empty" data-picker-empty="ap-cc-picker-list" data-empty-title="" data-empty-desc="请输入姓名、工号或部门搜索抄送人"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor"><path d="M24 29a9 9 0 1018 0 9 9 0 00-18 0z"></path><path d="M14 52c2.7-8.2 9-13 19-13s16.3 4.8 19 13"></path><path d="M16 14h32"></path><path d="M21 8h22"></path></svg><div class="em-tt" style="display:none"></div><div class="em-ds">请输入姓名、工号或部门搜索抄送人</div></div>
-          <button type="button" class="ap-picker-row multi" data-group="person" data-value="陈晨（B01009）" data-main="陈晨（B01009）" data-meta="招聘管理 · 招聘经理" onclick="selectApCcPickerPerson(this)"><span class="ap-picker-av">陈</span><span class="ap-picker-info"><span class="ap-picker-main">陈晨（B01009）</span><span class="ap-picker-meta">招聘管理 · 招聘经理</span></span><span class="ap-picker-check"></span></button>
-          <button type="button" class="ap-picker-row multi" data-group="person" data-value="刘洋（B02018）" data-main="刘洋（B02018）" data-meta="薪酬管理 · 专员" onclick="selectApCcPickerPerson(this)"><span class="ap-picker-av">刘</span><span class="ap-picker-info"><span class="ap-picker-main">刘洋（B02018）</span><span class="ap-picker-meta">薪酬管理 · 专员</span></span><span class="ap-picker-check"></span></button>
-          <button type="button" class="ap-picker-row multi" data-group="person" data-value="周琪（B03771）" data-main="周琪（B03771）" data-meta="人事管理 · SSC" onclick="selectApCcPickerPerson(this)"><span class="ap-picker-av">周</span><span class="ap-picker-info"><span class="ap-picker-main">周琪（B03771）</span><span class="ap-picker-meta">人事管理 · SSC</span></span><span class="ap-picker-check"></span></button>
-          <button type="button" class="ap-picker-row multi" data-group="person" data-value="李娜（B01888）" data-main="李娜（B01888）" data-meta="人力资源部 · HRBP" onclick="selectApCcPickerPerson(this)"><span class="ap-picker-av">李</span><span class="ap-picker-info"><span class="ap-picker-main">李娜（B01888）</span><span class="ap-picker-meta">人力资源部 · HRBP</span></span><span class="ap-picker-check"></span></button>
-          <button type="button" class="ap-picker-row multi" data-group="person" data-value="王强（B02345）" data-main="王强（B02345）" data-meta="销售管理部 · 经理" onclick="selectApCcPickerPerson(this)"><span class="ap-picker-av">王</span><span class="ap-picker-info"><span class="ap-picker-main">王强（B02345）</span><span class="ap-picker-meta">销售管理部 · 经理</span></span><span class="ap-picker-check"></span></button>
-          <button type="button" class="ap-picker-row multi" data-group="person" data-value="赵敏（B03112）" data-main="赵敏（B03112）" data-meta="产品研发部 · 总监" onclick="selectApCcPickerPerson(this)"><span class="ap-picker-av">赵</span><span class="ap-picker-info"><span class="ap-picker-main">赵敏（B03112）</span><span class="ap-picker-meta">产品研发部 · 总监</span></span><span class="ap-picker-check"></span></button>
-          <button type="button" class="ap-picker-row multi" data-group="person" data-value="吴杰（B04109）" data-main="吴杰（B04109）" data-meta="HSSC人力共享 · 测试组" onclick="selectApCcPickerPerson(this)"><span class="ap-picker-av">吴</span><span class="ap-picker-info"><span class="ap-picker-main">吴杰（B04109）</span><span class="ap-picker-meta">HSSC人力共享 · 测试组</span></span><span class="ap-picker-check"></span></button>
-          <button type="button" class="ap-picker-row multi" data-group="person" data-value="谢蓉蓉（B05555）" data-main="谢蓉蓉（B05555）" data-meta="海外HRBP · 已授权审批" onclick="selectApCcPickerPerson(this)"><span class="ap-picker-av">谢</span><span class="ap-picker-info"><span class="ap-picker-main">谢蓉蓉（B05555）</span><span class="ap-picker-meta">海外HRBP · 已授权审批</span></span><span class="ap-picker-check"></span></button>
-          <button type="button" class="ap-picker-row multi" data-group="person" data-value="韩莹莹（B06666）" data-main="韩莹莹（B06666）" data-meta="海外行政 · 运营支持" onclick="selectApCcPickerPerson(this)"><span class="ap-picker-av">韩</span><span class="ap-picker-info"><span class="ap-picker-main">韩莹莹（B06666）</span><span class="ap-picker-meta">海外行政 · 运营支持</span></span><span class="ap-picker-check"></span></button>
+          <div class="ap-picker-empty" data-picker-empty="ap-cc-picker-list" data-empty-title="" data-empty-desc="请输入姓名、工号搜索抄送人"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor"><path d="M24 29a9 9 0 1018 0 9 9 0 00-18 0z"></path><path d="M14 52c2.7-8.2 9-13 19-13s16.3 4.8 19 13"></path><path d="M16 14h32"></path><path d="M21 8h22"></path></svg><div class="em-tt" style="display:none"></div><div class="em-ds">请输入姓名、工号搜索抄送人</div></div>
+          <button type="button" class="ap-picker-row multi" data-group="person" data-value="陈晨（B01009）" data-main="陈晨（B01009）" onclick="selectApCcPickerPerson(this)"><span class="ap-picker-info"><span class="ap-picker-main">陈晨（B01009）</span></span><span class="ap-picker-check"></span></button>
+          <button type="button" class="ap-picker-row multi" data-group="person" data-value="刘洋（B02018）" data-main="刘洋（B02018）" onclick="selectApCcPickerPerson(this)"><span class="ap-picker-info"><span class="ap-picker-main">刘洋（B02018）</span></span><span class="ap-picker-check"></span></button>
+          <button type="button" class="ap-picker-row multi" data-group="person" data-value="周琪（B03771）" data-main="周琪（B03771）" onclick="selectApCcPickerPerson(this)"><span class="ap-picker-info"><span class="ap-picker-main">周琪（B03771）</span></span><span class="ap-picker-check"></span></button>
+          <button type="button" class="ap-picker-row multi" data-group="person" data-value="李娜（B01888）" data-main="李娜（B01888）" onclick="selectApCcPickerPerson(this)"><span class="ap-picker-info"><span class="ap-picker-main">李娜（B01888）</span></span><span class="ap-picker-check"></span></button>
+          <button type="button" class="ap-picker-row multi" data-group="person" data-value="王强（B02345）" data-main="王强（B02345）" onclick="selectApCcPickerPerson(this)"><span class="ap-picker-info"><span class="ap-picker-main">王强（B02345）</span></span><span class="ap-picker-check"></span></button>
+          <button type="button" class="ap-picker-row multi" data-group="person" data-value="赵敏（B03112）" data-main="赵敏（B03112）" onclick="selectApCcPickerPerson(this)"><span class="ap-picker-info"><span class="ap-picker-main">赵敏（B03112）</span></span><span class="ap-picker-check"></span></button>
+          <button type="button" class="ap-picker-row multi" data-group="person" data-value="吴杰（B04109）" data-main="吴杰（B04109）" onclick="selectApCcPickerPerson(this)"><span class="ap-picker-info"><span class="ap-picker-main">吴杰（B04109）</span></span><span class="ap-picker-check"></span></button>
+          <button type="button" class="ap-picker-row multi" data-group="person" data-value="谢蓉蓉（B05555）" data-main="谢蓉蓉（B05555）" onclick="selectApCcPickerPerson(this)"><span class="ap-picker-info"><span class="ap-picker-main">谢蓉蓉（B05555）</span></span><span class="ap-picker-check"></span></button>
+          <button type="button" class="ap-picker-row multi" data-group="person" data-value="韩莹莹（B06666）" data-main="韩莹莹（B06666）" onclick="selectApCcPickerPerson(this)"><span class="ap-picker-info"><span class="ap-picker-main">韩莹莹（B06666）</span></span><span class="ap-picker-check"></span></button>
         </div>
         <div class="ap-picker-ft">
           <button type="button" class="sec" onclick="clearApCcPickerPerson()">清空</button>
@@ -5635,15 +5635,14 @@ body{padding:0;align-items:flex-start;overflow:auto;-webkit-font-smoothing:antia
             <button type="button" class="ap-pick-field" id="ap-transfer-pick" data-selected-person="" onclick="openApTransferPicker()">
               <span>
                 <span class="ap-pick-val placeholder" id="ap-transfer-pick-val">请选择处理人</span>
-                <span class="ap-pick-sub" id="ap-transfer-pick-sub">通过姓名、工号或部门搜索</span>
+                <span class="ap-pick-sub" id="ap-transfer-pick-sub">通过姓名、工号搜索</span>
               </span>
               <span class="ap-pick-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"></path></svg></span>
             </button>
             <input type="hidden" id="ap-transfer-search" data-selected-person="">
-            <div class="ap-fld-ft"><span class="ap-fld-tip" style="color:var(--c4)">点击进入移动端人员选择</span></div>
           </div>
           <div class="ap-fld">
-            <div class="ap-fld-lb">转交原因/审批意见 <span class="ap-fld-note opt">选填</span></div>
+            <div class="ap-fld-lb">转交原因/审批意见</div>
             <textarea class="ap-fld-textarea" id="ap-transfer-text" maxlength="2000" placeholder="可填写转交原因" oninput="updateApTransferCount()"></textarea>
             <div class="ap-fld-ft">
               <span class="ap-fld-tip">未填写时将直接提交</span>
@@ -5744,16 +5743,15 @@ body{padding:0;align-items:flex-start;overflow:auto;-webkit-font-smoothing:antia
             <button type="button" class="ap-pick-field" id="ap-cc-pick" data-selected-person="" onclick="openApCcPicker()">
               <span>
                 <span class="ap-pick-val placeholder" id="ap-cc-pick-val">请选择抄送人</span>
-                <span class="ap-pick-sub" id="ap-cc-pick-sub">通过姓名、工号或部门搜索</span>
+                <span class="ap-pick-sub" id="ap-cc-pick-sub">通过姓名、工号搜索</span>
               </span>
               <span class="ap-pick-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"></path></svg></span>
             </button>
             <div class="ap-addsign-chips" id="ap-cc-chips"></div>
             <input type="hidden" id="ap-cc-search" data-selected-person="">
-            <div class="ap-fld-ft"><span class="ap-fld-tip" style="color:var(--c4)">点击进入移动端人员选择</span></div>
           </div>
           <div class="ap-fld">
-            <div class="ap-fld-lb">审批意见 <span class="ap-fld-note opt">选填</span></div>
+            <div class="ap-fld-lb">审批意见</div>
             <textarea class="ap-fld-textarea" id="ap-cc-text" maxlength="2000" placeholder="可填写审批意见" oninput="updateApCcCount()"></textarea>
             <div class="ap-fld-ft">
               <span class="ap-fld-tip">未填写时将直接提交</span>
@@ -9435,7 +9433,7 @@ function selectApTransferPerson(row){
     val.textContent = row.dataset.main || value || '请选择处理人';
     val.classList.toggle('placeholder', !value);
   }
-  if(sub) sub.textContent = row.dataset.meta || '通过姓名、工号或部门搜索';
+  if(sub) sub.textContent = row.dataset.meta || '通过姓名、工号搜索';
   var list = row && row.parentElement;
   if(list) list.querySelectorAll('.ap-picker-row').forEach(function(item){item.classList.remove('selected');});
   if(row) row.classList.add('selected');
@@ -9454,7 +9452,7 @@ function clearApTransferPerson(){
     val.textContent = '请选择处理人';
     val.classList.add('placeholder');
   }
-  if(sub) sub.textContent = '通过姓名、工号或部门搜索';
+  if(sub) sub.textContent = '通过姓名、工号搜索';
   apResetSearchPicker('ap-person-picker-list','ap-person-picker-search');
   document.querySelectorAll('#ap-person-picker-list .ap-picker-row').forEach(function(row){row.classList.remove('selected');});
 }
