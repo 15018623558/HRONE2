@@ -109,10 +109,12 @@ body{font-family:var(--f);background:#CBD5E1;display:flex;justify-content:center
 .msg-card{background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:8px;box-shadow:var(--sx)}
 .msg-card:last-child{margin-bottom:0}
 .msg-card.unread{background:var(--sf);border-color:var(--bd)}
-.msg-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:10px}
+.msg-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.msg-meta{display:flex;align-items:center;gap:6px;min-width:0}
 .msg-title{flex:1;min-width:0;font-size:14px;font-weight:600;color:var(--c9);line-height:1.5}
+.msg-subject{font-size:14px;font-weight:700;color:var(--c9);line-height:1.5;word-break:break-word;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .msg-time{font-family:var(--m);font-size:14px;font-weight:500;color:var(--c4);flex-shrink:0;padding-top:2px;line-height:1.4}
-.msg-dot{width:6px;height:6px;border-radius:50%;background:var(--ro);display:inline-block;margin-right:4px;vertical-align:1px}
+.msg-dot{width:7px;height:7px;border-radius:50%;background:var(--ro);display:inline-block;flex:0 0 7px}
 .msg-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
 .msg-foot.no-action{justify-content:flex-start}
 .msg-type-tag{height:20px;display:inline-flex;align-items:center;border-radius:999px;background:var(--s2);border:1px solid rgba(15,23,42,.04);color:var(--c5);padding:0 8px;font-size:14px;font-weight:600;line-height:1}
@@ -3868,6 +3870,49 @@ body{padding:0;align-items:flex-start;overflow:auto;-webkit-font-smoothing:antia
   line-height:1.25!important;
 }
 
+#dt-message .msg-card{
+  padding:14px 16px 8px!important;
+  border-radius:18px!important;
+  margin-bottom:10px!important;
+}
+
+#dt-message .msg-top{
+  min-height:28px;
+  margin-bottom:8px;
+}
+
+#dt-message .msg-meta .msg-type-tag{
+  min-height:26px!important;
+  height:26px!important;
+  padding:0 10px!important;
+  border-radius:13px!important;
+  font-size:13px!important;
+}
+
+#dt-message .msg-subject{
+  font-size:14px!important;
+  line-height:1.48!important;
+}
+
+#dt-message .msg-foot{
+  justify-content:flex-end;
+  min-height:28px;
+  margin-top:4px;
+}
+
+#dt-message .msg-actions{
+  gap:16px;
+  row-gap:0;
+  margin-left:auto;
+}
+
+#dt-message .msg-action-btn{
+  min-height:28px;
+  font-size:15px!important;
+  font-weight:800;
+  line-height:20px;
+}
+
 #pg-approve .ap-filter-bar{
   min-height:44px!important;
 }
@@ -7117,16 +7162,16 @@ var MSG_TYPES=[
 ];
 var MSG_DATA=[
   {id:'m1',status:'unread',type:'approval',title:'李华的调动申请待审批',time:'09:24',desc:'申请已流转至你当前审批节点，请及时查看处理。',detail:'申请人：李华；流程类型：调动申请；当前节点：调出部门直接上级。请在审批详情中查看申请信息、附件与流程记录。',action:'detail',detailPage:'dt-ap-transfer'},
-  {id:'m2',status:'unread',type:'system',title:'合同模板已更新',time:'08:55',desc:'您好，合同模板数据已更新，请前往查看。',detail:'您好，合同模板数据已更新，请前往查看。新版模板已同步至合同中心，新增电子签署字段与版本说明。',action:'none'},
+  {id:'m2',status:'unread',type:'system',title:'合同模板已更新',subject:'您好，合同模板数据已更新，请前往查看。新版模板已同步至合同中心，新增电子签署字段、版本说明和适用范围，请各部门在发起劳动合同、续签协议及补充协议时统一使用新版模板，旧版本将于本周五停止使用。',time:'08:55',desc:'您好，合同模板数据已更新，请前往查看。',detail:'您好，合同模板数据已更新，请前往查看。新版模板已同步至合同中心，新增电子签署字段与版本说明。',action:'none'},
   {id:'m3',status:'unread',type:'export',title:'员工花名册导出完成',time:'08:12',desc:'6月员工花名册已生成，可下载到手机本地。',detail:'导出文件：员工花名册_2026-06.xlsx。系统已完成导出，请点击下载按钮保存到本地。',action:'download',fileName:'员工花名册_2026-06.csv',fileMime:'text/csv;charset=utf-8',fileContent:'\ufeff姓名,部门,岗位\n陈思远,产品设计部,高级设计师\n刘观耀,人力资源部,产品经理\n李华,产品组,产品经理'},
   {id:'m4',status:'unread',type:'approval',title:'周明的请假申请待审批',time:'昨天 18:30',desc:'审批已到达你的处理节点，等待你查看详情。',detail:'申请人：周明；流程类型：请假申请；请假时间：2026-06-29 至 2026-06-30。请前往审批详情查看原因与流程记录。',action:'detail',detailPage:'dt-ap-detail'},
-  {id:'m5',status:'read',type:'system',title:'合同模板数据已更新',time:'6/26',desc:'您好，合同模板数据已更新，请前往查看。',detail:'您好，合同模板数据已更新，请前往查看。更新内容包含试用期条款补充和模板编号规范化。',action:'none'},
-  {id:'m6',status:'read',type:'approval',title:'张琳的调动申请已处理',time:'6/25',desc:'流程记录已同步，可点击查看审批详情。',detail:'申请人：张琳；流程类型：调动申请；处理结果：已完成当前节点审批。你可以进入流程审批详情查看完整记录。',action:'detail',detailPage:'dt-ap-transfer'},
-  {id:'m7',status:'read',type:'export',title:'工资确认单导出完成',time:'6/24',desc:'工资确认单已生成，可下载到手机本地。',detail:'导出文件：工资确认单_2026-06.pdf。点击下载后将保存至手机本地文件目录。',action:'download',fileName:'工资确认单_2026-06.txt',fileMime:'text/plain;charset=utf-8',fileContent:'工资确认单 2026-06\n员工：陈思远\n状态：已确认'},
-  {id:'m8',status:'read',type:'system',title:'员工手册已更新',time:'6/23',desc:'新增出差报销说明，请及时查看。',detail:'员工手册新增出差报销说明与补充条款，请进入制度中心查看完整内容。',action:'none'},
-  {id:'m9',status:'read',type:'system',title:'季度团建报名提醒',time:'6/21',desc:'本周五截止报名，请尽快确认参加。',detail:'季度团建活动将于 2026-07-05 举行，报名截止时间为本周五 18:00。',action:'none'},
+  {id:'m5',status:'read',type:'system',title:'合同模板数据已更新',time:'2026-06-26 09:18:32',desc:'您好，合同模板数据已更新，请前往查看。',detail:'您好，合同模板数据已更新，请前往查看。更新内容包含试用期条款补充和模板编号规范化。',action:'none'},
+  {id:'m6',status:'read',type:'approval',title:'张琳的调动申请已处理',time:'2026-06-25 16:42:08',desc:'流程记录已同步，可点击查看审批详情。',detail:'申请人：张琳；流程类型：调动申请；处理结果：已完成当前节点审批。你可以进入流程审批详情查看完整记录。',action:'detail',detailPage:'dt-ap-transfer'},
+  {id:'m7',status:'read',type:'export',title:'工资确认单导出完成',time:'2026-06-24 14:05:56',desc:'工资确认单已生成，可下载到手机本地。',detail:'导出文件：工资确认单_2026-06.pdf。点击下载后将保存至手机本地文件目录。',action:'download',fileName:'工资确认单_2026-06.txt',fileMime:'text/plain;charset=utf-8',fileContent:'工资确认单 2026-06\n员工：陈思远\n状态：已确认'},
+  {id:'m8',status:'read',type:'system',title:'员工手册已更新',time:'2026-06-23 11:27:14',desc:'新增出差报销说明，请及时查看。',detail:'员工手册新增出差报销说明与补充条款，请进入制度中心查看完整内容。',action:'none'},
+  {id:'m9',status:'read',type:'system',title:'季度团建报名提醒',time:'2026-06-21 18:00:00',desc:'本周五截止报名，请尽快确认参加。',detail:'季度团建活动将于 2026-07-05 举行，报名截止时间为本周五 18:00。',action:'none'},
   {id:'m10',status:'unread',type:'other',title:'办公区访客预约提醒',time:'昨天 16:40',desc:'你有一条办公区访客预约提醒，请及时查看。',detail:'访客预约已提交，请在访客中心确认到访时间与接待信息。',action:'none'},
-  {id:'m11',status:'read',type:'other',title:'员工关怀问卷已发布',time:'6/20',desc:'本月员工关怀问卷已发布，欢迎参与填写。',detail:'问卷预计用时 3 分钟，感谢你对员工体验的反馈。',action:'none'}
+  {id:'m11',status:'read',type:'other',title:'员工关怀问卷已发布',time:'2026-06-20 10:15:09',desc:'本月员工关怀问卷已发布，欢迎参与填写。',detail:'问卷预计用时 3 分钟，感谢你对员工体验的反馈。',action:'none'}
 ];
 function msgTypeLabel(type){
   var item=MSG_TYPES.find(function(t){return t.key===type});
@@ -7135,13 +7180,48 @@ function msgTypeLabel(type){
 function formatMsgCount(count){
   return count>99?'99+':String(count);
 }
+function msgPad2(n){
+  return String(n).padStart(2,'0');
+}
+function msgNowSecondText(){
+  var d=new Date();
+  return d.getFullYear()+'-'+msgPad2(d.getMonth()+1)+'-'+msgPad2(d.getDate())+' '+msgPad2(d.getHours())+':'+msgPad2(d.getMinutes())+':'+msgPad2(d.getSeconds());
+}
+function getMsgDisplayTime(m){
+  if(!m) return '';
+  return String(m.status==='read' ? (m.readAt || m.time || '') : (m.time || '')).trim();
+}
+function msgSafeText(value){
+  return String(value==null?'':value).replace(/[&<>"']/g,function(ch){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
+  });
+}
+function getMsgSubject(m){
+  return String((m&&(m.subject||m.messageSubject||m.title||m.desc||m.detail))||'').trim();
+}
 function getMsgHeadline(m){
-  return (m&&m.desc?m.desc:m&&m.title?m.title:'').trim();
+  return getMsgSubject(m);
+}
+function getMsgActionButtons(m){
+  if(!m) return [];
+  var buttons=[];
+  if(m.type==='approval'){
+    buttons.push('<button class="msg-action-btn primary" onclick="openMsgDetail(\''+m.id+'\')">查看详情</button>');
+    return buttons;
+  }
+  if(m.type==='export'){
+    buttons.push('<button class="msg-action-btn download" onclick="openMsgAction(\''+m.id+'\')">下载</button>');
+    return buttons;
+  }
+  if(m.status==='unread'){
+    buttons.push('<button class="msg-action-btn read" onclick="markMessageRead(\''+m.id+'\',event)">标为已读</button>');
+  }
+  return buttons;
 }
 function msgMatchesQuery(m){
   if(!msgSearchQuery) return true;
   var q=msgSearchQuery.toLowerCase();
-  return [m.title,m.desc,m.detail,msgTypeLabel(m.type),m.time].join(' ').toLowerCase().indexOf(q)>-1;
+  return [m.subject,m.messageSubject,m.title,m.desc,m.detail,msgTypeLabel(m.type),m.time].join(' ').toLowerCase().indexOf(q)>-1;
 }
 function getMsgFiltered(status){
   return MSG_DATA.filter(function(m){
@@ -7217,20 +7297,14 @@ function renderMsgCards(status){
   var list=getMsgFiltered(status);
   if(list.length===0) return '<div class="msg-empty">'+(msgSearchQuery?'未找到相关消息':'当前分类暂无消息')+'</div>';
   return list.map(function(m){
-    var actionBtns=[];
-    if(m.action==='detail'){
-      actionBtns.push('<button class="msg-action-btn primary" onclick="openMsgAction(\''+m.id+'\')">查看详情</button>');
-    }else if(m.action==='download'){
-      actionBtns.push('<button class="msg-action-btn download" onclick="openMsgAction(\''+m.id+'\')">下载</button>');
-    }
-    if(m.status==='unread'){
-      actionBtns.push('<button class="msg-action-btn read" onclick="markMessageRead(\''+m.id+'\',event)">标为已读</button>');
-    }
-    var actionHtml=actionBtns.length?'<div class="msg-actions">'+actionBtns.join('')+'</div>':'';
+    var actionBtns=getMsgActionButtons(m);
+    var footHtml=actionBtns.length?'<div class="msg-foot"><div class="msg-actions">'+actionBtns.join('')+'</div></div>':'';
     var headline=getMsgHeadline(m);
+    var displayTime=getMsgDisplayTime(m);
     return '<div class="msg-card'+(m.status==='unread'?' unread':'')+'">'+
-      '<div class="msg-top"><div class="msg-title">'+(m.status==='unread'?'<span class="msg-dot"></span>':'')+headline+'</div><div class="msg-time">'+m.time+'</div></div>'+
-      '<div class="msg-foot'+(actionHtml?'':' no-action')+'"><span class="msg-type-tag">'+msgTypeLabel(m.type)+'</span>'+actionHtml+'</div>'+
+      '<div class="msg-top"><div class="msg-meta">'+(m.status==='unread'?'<span class="msg-dot"></span>':'')+'<span class="msg-type-tag">'+msgSafeText(msgTypeLabel(m.type))+'</span></div><div class="msg-time">'+msgSafeText(displayTime)+'</div></div>'+
+      '<div class="msg-subject">'+msgSafeText(headline)+'</div>'+
+      footHtml+
     '</div>';
   }).join('');
 }
